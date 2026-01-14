@@ -1,0 +1,92 @@
+<div class="flex-fill p-4">
+    <h1>Nozzle</h1>
+    <form [formGroup]="nozzleForm">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <label for="nozzleDiameter" class="form-label">Diameter</label>
+                <input type="number" class="form-control" id="nozzleDiameter" formControlName="nozzleDiameter"/>
+                
+            </div>
+            <div class="col-md-3">
+                <label for="nozzleProfile" class="form-label">Opcja 1</label>
+                <select 
+                    id="nozzleProfile" 
+                    class="form-select"
+                    formControlName="nozzleProfile"
+                >
+                    <option disabled>— wybierz —</option>
+                    @for (nozzleProfile of nozzleProfiles; track $index) {
+                        <option [value]="$index">{{nozzleProfile}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="nozzleType" class="form-label">Opcja 1</label>
+                <select 
+                    id="nozzleType" 
+                    class="form-select"
+                    formControlName="nozzleType"
+                >
+                    <option disabled>— wybierz —</option>
+                    @for (nozzleType of nozzleTypesEng; track $index) {
+                        <option [value]="$index">{{nozzleType}}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="nozzleInnerRing" class="form-label">Opcja 1</label>
+                <select 
+                    id="nozzleInnerRing" 
+                    class="form-select"
+                    formControlName="nozzleInnerRing"
+                >
+                    <option disabled>— wybierz —</option>
+                    @for (nozzleInnerRing of nozzleInnerRingsEng; track $index) {
+                        <option [value]="$index">{{nozzleInnerRing}}</option>
+                    }
+                </select>
+            </div>
+
+            
+        </div>
+    </form>
+    
+    <p class="mt-3 flex flex-row gap-4">
+        {{getNozzleResultEng()}}
+    </p>
+    <p class="mt-3 flex flex-row gap-4">
+        {{getNozzleResultPl()}}
+    </p>
+    <div class="flex flex-row gap-8">
+    
+        <button type="button" (click)="copyToClipboardEng()" class="relative flex items-center w-20 h-10 gap-2  rounded-lg
+                bg-white border border-gray-300 justify-center
+                hover:border-blue-500 hover:shadow-md hover:scale-105
+                transition
+                overflow-hidden">
+            <span class="absolute inset-0 bg-[url('/flag_uk.png')]
+                bg-no-repeat bg-cover bg-center opacity-15"></span>
+    
+            <!-- Content -->
+            <span class="relative font-medium text-gray-800">
+                Copy EN
+            </span>
+        </button>
+        <button type="button" (click)="copyToClipboardPl()" class="relative flex items-center w-20 h-10 gap-2  rounded-lg
+            bg-white border border-gray-300 justify-center
+            hover:border-blue-500 hover:shadow-md hover:scale-105
+            transition
+            overflow-hidden">
+            <span class="absolute inset-0 bg-[url('/flag_pl.png')]
+            bg-no-repeat bg-cover bg-center opacity-15"></span>
+    
+            <!-- Content -->
+            <span class="relative font-medium text-gray-800">
+                Copy PL
+            </span>
+        </button>
+    </div>
+
+
+</div>
