@@ -1,13 +1,17 @@
-import { Component, computed, signal } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Numpad } from "../numpad/numpad";
 
 @Component({
   selector: 'app-nozzle',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Numpad],
   templateUrl: './nozzle.html',
   styleUrl: './nozzle.css',
 })
 export class Nozzle {
+
+  http = inject(HttpClient)
 
   nozzleForm: FormGroup = new FormGroup({
     nozzleDiameter: new FormControl(0),
@@ -76,7 +80,31 @@ export class Nozzle {
       alert('Copied to clipboard')
     })
   }
-}
+
+  translatedText = ""
+
+  
+  translate() {
+    const body = new URLSearchParams();
+    body.set('q', this.getNozzleResultEng());
+    body.set('source', 'pl');
+    body.set('target', 'en');
+    body.set('format', 'text');
+
+    this.http.post<any>(
+      'https://translate.argosopentech.com/translate',
+      body.toString(),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    ).subscribe({
+      next: res => this.translatedText = res.translatedText,
+      error: err => console.error(err)
+    });
+  }
 
 
   
+}
