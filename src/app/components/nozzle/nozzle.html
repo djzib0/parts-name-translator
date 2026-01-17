@@ -87,7 +87,13 @@
             </span>
         </button>
     </div>
-    
-    <app-numpad></app-numpad>
+    <p>Nozzle diameter from parent: {{nozzleForm.get('nozzleDiameter')?.value}}</p>
+    <app-numpad 
+        [passedValue]= "nozzleForm.get('nozzleDiameter')?.value"
+        (changeDiameter)="receiveDiameter($event)"
+        (showChildMessage)="showParentMessage()"
+        >
+    </app-numpad>
+    <button class="btn btn-danger" (click)="showParentMessage()">Show parent message</button>
 
 </div>

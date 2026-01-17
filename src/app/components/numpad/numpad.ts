@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-numpad',
@@ -8,23 +8,36 @@ import { Component, signal } from '@angular/core';
 })
 export class Numpad {
 
-  result: number[] = [];
+  @Input() passedValue: number = 0;
+  @Output() changeDiameter = new EventEmitter<number>();
+  @Output() showChildMessage = new EventEmitter<void>();
 
-  clickNum = (num: number) => {
-    this.result.push(num)
+  showMessage(): void {
+    console.log('child button clicked')
+    this.showChildMessage.emit();
   }
 
-  clickBack() {
-    this.result.pop();
+  internalValue: number[] = []
+
+
+  clickNum = (num: number): void => {
+      this.internalValue.push(num)
+      this.changeDiameter.emit(Number(this.internalValue.join('')))
   }
 
-  showResult() {
-      let resultString = ""
-      console.log(this.result)
-      for (let item of this.result) {
-        resultString += item.toString();
-      }
-      return resultString
-    }
+  clickBack(): void {
+      this.internalValue.pop();
+      this.changeDiameter.emit(Number(this.internalValue.join('')))
+  }
+
+  showPrivateResult() {
+    return Number(this.internalValue.join(''))
+  }
+
+  showResult(): void {
+      this.changeDiameter.emit(Number(this.internalValue.join('')))
+  }
+
   
+
 }

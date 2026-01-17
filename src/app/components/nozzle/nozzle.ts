@@ -19,6 +19,15 @@ export class Nozzle {
     nozzleType: new FormControl(""),
     nozzleInnerRing: new FormControl(""),
   })
+
+  receiveDiameter(newDiameter: number) {
+    this.nozzleForm.get('nozzleDiameter')?.setValue(newDiameter)
+  }
+
+  showParentMessage() {
+    console.log('Parent is always right')
+  }
+
   
   nozzleProfiles: string[] = ["19A", "Optima"]
 

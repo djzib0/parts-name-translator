@@ -66,11 +66,14 @@
 
         <div class="col-4 d-grid">
             <button type="button" class="btn btn-outline-primary num-btn" (click)="clickBack()">
-                <=
+                ⌫
             </button>
         </div>
 
     </div>
 
-    <p>{{showResult()}}</p>
+    <!-- <p>{{showResult()}}</p> -->
+    <p>Passed value from parent {{passedValue}}</p>
+    <p>Current numpad value: {{showPrivateResult()}}</p>
+    <button type="button" (click)="showMessage()">Show message</button>
 </div>

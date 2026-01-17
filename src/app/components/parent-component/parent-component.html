@@ -1,0 +1,6 @@
+<h3>Parent value: {{nozzleDiameter}}</h3>
+<app-child-component
+    [passedDiameter]="nozzleDiameter"
+    (valueChanged)="receiveValue($event)"
+    >
+</app-child-component>
